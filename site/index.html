@@ -7,27 +7,72 @@
 	<title>Hi </title>
 	<meta name="keyword" content="hileo">
 	<meta name="description" content="this is a description">
-	<meta http-equiv="content-type" content="charset=euc-jp">
+	<meta http-equiv="content-type" content="content=text/HTML;charset=UTF-8">
+	<script>
+
+		function play() {
+			document.getElementById("audio1").play();
+		}
+		function show() {
+			document.getElementById("popimg").style.visibility = "visible";
+		}
+		function hide() {
+			document.getElementById("popimg").style.visibility = "hidden";
+		}
+	</script>
 </head>
 
 <body>
-	<h2 align="left">&quot&nbsp&nbsp&nbsp&nbspleft</h2>
+
+	<p id="hleft">&quot&nbsp&nbsp&nbsp&nbspleft</p>
+
 	<h3 align="center">center</h3>
 	<hr>
 	<h4 align="right">right </h4>
-	<a href="2.html" target="_parent">
-		jump to 2 haha111111111
+	<div id="mapholder">
+		gonna show map here
+	</div>
+	<a href="#hleft" target="_parent">
+		jump to left
 	</a>
 	<hr>
-
+	<button onclick="getLocation()">get your location</button>
 	<Div align="center">
-		<marquee behavior="alternate" direction="up" scrollamount="7" scrolldelay="100">
-			<a href="2.html"><img src="image.jpg" title="jump to 2" width="400" height="160" /></a>
+		<marquee behavior="alternate" direction="up" scrollamount="3" scrolldelay="100">
+			<a href="2.html"><img id="popimg" style="visibility:hidden;" src="image.jpg" title="jump to 2" width="300"
+					height="100" /></a>
 		</marquee>
 	</div>
+	
 
-	&nbsp&nbsp
-	<h3 align="center">
+
+	<script>
+		var x = document.getElementById("hleft");
+		function getLocation() {
+			if(navigator.geolocation){
+				navigator.geolocation.getCurrentPosition(showPosition, showError);
+			}
+			else{
+				x.innerHTML = "geo loc not supported";
+			}
+		}
+		function showPosition(position){
+			var latlon = position.coords.latitude + "," + position.coords.longitude;
+			x.innerHTML=latlon;
+			var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&senser=false";
+			document.getElementById("mapholder").innerHTML= "<img src='"+img_url+"' />";
+		}
+		function showError(error){
+			x.innerHTML = error.code;
+		}
+	</script>
+	<video height="400" width="500" preload="auto" controls loop>
+		<source src="video.mp4" type="video/mp4">
+	</video>
+	<audio controls id="audio1" onplay="show()" onpause="hide()">
+		<source src="music.mp3" type="audio/mp3">
+	</audio>
+	<!--h3 align="center">
 		<form action="2.html" name="form1" method="GET" target="_parent">goto 2
 			<input type="text" name="content" size="20" value="hey" maxlength="5" />
 			<p align="right">
@@ -51,8 +96,13 @@
 
 			<textarea name="ta" id="" cols="30" rows="10">Leave your messages here</textarea>
 			<br>
-			<embed src="music.mp3" height="80" width="500">
-		</form>
+
+			<!--embed src="music.mp3" height="80" width="500"---->
+	</form>
+	<form>
+		<input type="urls" name="urls" value="http://www.baidu.com">
+		<input type="submit" name="s2" id="f2submit">
+	</form>
 	</h3>
 
 
